@@ -187,8 +187,11 @@ public class UserInputPanel extends javax.swing.JPanel {
 							+ Integer.parseInt(weight);
 					int col = Integer.parseInt(capacity);
 
+					if (label.equals("No Tag")) {
+						label = "";
+					}
 					qp[row][col].setQuantity(quantity
-							+ qp[row][col].getQuantity());
+							+ qp[row][col].getQuantity(), label);
 
 				}
 
@@ -226,7 +229,7 @@ public class UserInputPanel extends javax.swing.JPanel {
 			});
 
 			labelComboBox.setModel(new javax.swing.DefaultComboBoxModel(
-					new String[] { "VZV", "LIV7", "SW", "PCI", "ORYX", "TOT",
+					new String[] { "No Tag", "VZV", "LIV7", "SW", "PCI", "ORYX", "TOT",
 							"MOB", "TEX", "PIV", "SIM", "ESS", "AUT" }));
 
 			javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(

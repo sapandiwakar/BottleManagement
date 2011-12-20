@@ -1,32 +1,30 @@
 package com.livrasion.UI;
 
-import java.awt.BorderLayout;
+import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.RenderingHints;
 
-import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.JSpinner;
-import javax.swing.SpinnerModel;
-import javax.swing.SpinnerNumberModel;
 
+public class Test extends JPanel{
+    public void paint(Graphics g) {
+        Graphics2D g2 = (Graphics2D)g;
+        
+        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+            RenderingHints.VALUE_ANTIALIAS_ON);
+        Font font = new Font("Serif", Font.PLAIN, 96);
+        g2.setFont(font);
+        
+        
+        g2.drawString("Java Source and Support", 40, 120); 
+      }
 
-public class Test {
-  public static void main(String args[]) {
-    JFrame frame = new JFrame("JSpinner Sample");
-    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-    SpinnerModel model = new SpinnerNumberModel(50, 0, 100, .25);
-    JSpinner spinner = new JSpinner(model);
-    JComponent editor = new JSpinner.NumberEditor(spinner);
-    spinner.setEditor(editor);
-    
-    JPanel panel1 = new JPanel(new BorderLayout());
-    panel1.add(spinner, BorderLayout.CENTER);
-    frame.add(panel1, BorderLayout.SOUTH);
-
- 
-
-    frame.setSize(200, 90);
-    frame.setVisible(true);
+  public static void main(String[] args) {
+    JFrame f = new JFrame();
+    f.getContentPane().add(new Test());
+    f.setSize(300, 200);
+    f.setVisible(true);
   }
 }

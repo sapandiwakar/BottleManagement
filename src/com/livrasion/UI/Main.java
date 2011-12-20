@@ -145,17 +145,17 @@ public class Main extends JFrame {
 
 		// ////////////////////////////////////////////////////////
 
-		qp[3][3].setQuantity(1);
-		qp[1][3].setQuantity(2);
-		qp[2][2].setQuantity(3);
-		qp[0][4].setQuantity(4);
-		qp[4][2].setQuantity(5);
+		qp[3][3].setQuantity(1, "VZV");
+		qp[1][3].setQuantity(2, "VZV");
+		qp[2][2].setQuantity(3, "VZV");
+		qp[0][4].setQuantity(4, "VZV");
+		qp[4][2].setQuantity(5, "VZV");
 
-		qp[1][4].setQuantity(6);
-		qp[2][3].setQuantity(7);
-		qp[3][2].setQuantity(8);
-		qp[4][1].setQuantity(9);
-		qp[0][0].setQuantity(18);
+		qp[1][4].setQuantity(6, "VZV");
+		qp[2][3].setQuantity(7, "VZV");
+		qp[3][2].setQuantity(8, "VZV");
+		qp[4][1].setQuantity(9, "VZV");
+		qp[0][0].setQuantity(18, "VZV");
 		// //////////////////////////////////////////////////////
 
 		table.clearSelection();

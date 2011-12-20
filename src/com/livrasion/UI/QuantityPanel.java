@@ -5,13 +5,15 @@ package com.livrasion.UI;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Graphics;
-import java.awt.ScrollPane;
-import java.awt.Scrollbar;
+import java.awt.Graphics2D;
+import java.awt.RenderingHints;
+import java.awt.geom.AffineTransform;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 
 /**
  * @author hp
@@ -44,14 +46,18 @@ public class QuantityPanel extends JPanel {
 
 	private int colWidth;
 
+	private AffineTransform at;
+
 	public QuantityPanel(int row, int col, MultiSpanCellTable table) {
 		this.row = row;
 		this.col = col;
 		this.table = table;
+		this.tags = new ArrayList<String>();
 	}
 
 	@Override
 	public void paint(Graphics g) {
+		Graphics2D g2 = (Graphics2D) g;
 		if (type == EXIT) {
 			g.setColor(new Color(255, 0, 0));
 		} else if (type == ENTRY) {
@@ -82,9 +88,20 @@ public class QuantityPanel extends JPanel {
 			switch (lineType) {
 			case 0:
 				g.drawLine(x, y, x, y + sideLength);
-				break;
+				g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+			            RenderingHints.VALUE_ANTIALIAS_ON);
+		        Font font0 = new Font("Sansserif", Font.PLAIN, 10);
+		        g2.setFont(font0);
+		        at = g2.getTransform();
+		        render(x -1, y + sideLength - 3, tags.get(i), at, g2);
+			    break;
 			case 1:
 				g.drawLine(x, y, x + sideLength, y);
+				g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+			            RenderingHints.VALUE_ANTIALIAS_ON);
+			        Font font1 = new Font("Sansserif", Font.PLAIN, 10);
+			        g2.setFont(font1);
+			    //g2.drawString(tags.get(i), x + 5, y - 1);
 				x += sideLength;
 				break;
 			case 2:
@@ -93,10 +110,20 @@ public class QuantityPanel extends JPanel {
 				break;
 			case 3:
 				g.drawLine(x, y, x - sideLength, y);
+				g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+			            RenderingHints.VALUE_ANTIALIAS_ON);
+			        Font font3 = new Font("Sansserif", Font.PLAIN, 10);
+			        g2.setFont(font3);
+			    //g2.drawString(tags.get(i), x - sideLength + 5, y + 9);
 				x -= sideLength;
 				break;
 			case 4:
 				g.drawLine(x, y, x + sideLength, y - sideLength);
+				g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+			            RenderingHints.VALUE_ANTIALIAS_ON);
+			        Font font = new Font("Sansserif", Font.PLAIN, 10);
+			        g2.setFont(font);
+			 //   g2.drawString(tags.get(i), x + 6, y - 10);
 				currSquare++;
 				x = xInitial + currSquare * (sideLength + gap);
 				y = yInitial;
@@ -116,6 +143,14 @@ public class QuantityPanel extends JPanel {
 			lineType %= nSides;
 		}
 	}
+	
+	private void render(int x, int y, String tag, AffineTransform at, Graphics2D g2) {
+		Graphics2D g2d = g2;
+        g2d.setTransform(at);
+        g2d.rotate(3 * Math.PI / 2, x, y);
+        g2d.drawString(tag, x, y);
+        g2d.setTransform(at);
+    }
 
 	void refresh() {
 		table.clearSelection();
@@ -126,7 +161,10 @@ public class QuantityPanel extends JPanel {
 		return quantity;
 	}
 
-	public void setQuantity(int quantity) {
+	public void setQuantity(int quantity, String tag) {
+		for (int i=this.quantity; i < quantity; ++i) {
+			tags.add(tag);
+		}
 		this.quantity = quantity;
 		refresh();
 	}
