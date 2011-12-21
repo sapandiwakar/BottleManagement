@@ -232,202 +232,82 @@ public class UserInputPanel extends javax.swing.JPanel {
 							"ORYX", "TOT", "MOB", "TEX", "PIV", "SIM", "ESS",
 							"AUT" }));
 
-			javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(
-					jPanel1);
-			jPanel1.setLayout(jPanel1Layout);
-			jPanel1Layout
-					.setHorizontalGroup(jPanel1Layout
-							.createParallelGroup(
-									javax.swing.GroupLayout.Alignment.LEADING)
-							.addGroup(
-									jPanel1Layout
-											.createSequentialGroup()
-											.addContainerGap()
-											.addGroup(
-													jPanel1Layout
-															.createParallelGroup(
-																	javax.swing.GroupLayout.Alignment.LEADING)
-															.addComponent(
-																	exitRadioButton)
-															.addComponent(
-																	entryRadioButton)
-															.addComponent(
-																	reservationRadioButton))
-											.addGap(34, 34, 34)
-											.addGroup(
-													jPanel1Layout
-															.createParallelGroup(
-																	javax.swing.GroupLayout.Alignment.LEADING)
-															.addComponent(
-																	fullRadioButton)
-															.addComponent(
-																	emptyRadioButton))
-											.addGap(47, 47, 47)
-											.addGroup(
-													jPanel1Layout
-															.createParallelGroup(
-																	javax.swing.GroupLayout.Alignment.LEADING)
-															.addGroup(
-																	jPanel1Layout
-																			.createSequentialGroup()
-																			.addComponent(
-																					labelComboBox,
-																					javax.swing.GroupLayout.PREFERRED_SIZE,
-																					javax.swing.GroupLayout.DEFAULT_SIZE,
-																					javax.swing.GroupLayout.PREFERRED_SIZE)
-																			.addGap(69,
-																					69,
-																					69)
-																			.addComponent(
-																					quantitySpinnerBox,
-																					javax.swing.GroupLayout.PREFERRED_SIZE,
-																					48,
-																					javax.swing.GroupLayout.PREFERRED_SIZE))
-															.addGroup(
-																	jPanel1Layout
-																			.createSequentialGroup()
-																			.addComponent(
-																					B6)
-																			.addGap(39,
-																					39,
-																					39)
-																			.addGroup(
-																					jPanel1Layout
-																							.createParallelGroup(
-																									javax.swing.GroupLayout.Alignment.LEADING)
-																							.addComponent(
-																									printButton)
-																							.addGroup(
-																									jPanel1Layout
-																											.createSequentialGroup()
-																											.addComponent(
-																													B12)
-																											.addGap(31,
-																													31,
-																													31)
-																											.addComponent(
-																													B15)))))
-											.addGap(27, 27, 27)
-											.addGroup(
-													jPanel1Layout
-															.createParallelGroup(
-																	javax.swing.GroupLayout.Alignment.LEADING)
-															.addGroup(
-																	jPanel1Layout
-																			.createSequentialGroup()
-																			.addGap(27,
-																					27,
-																					27)
-																			.addComponent(
-																					B28)
-																			.addGap(26,
-																					26,
-																					26)
-																			.addComponent(
-																					B32)
-																			.addGap(18,
-																					18,
-																					18)
-																			.addComponent(
-																					B38))
-															.addGroup(
-																	jPanel1Layout
-																			.createSequentialGroup()
-																			.addGap(40,
-																					40,
-																					40)
-																			.addComponent(
-																					addButton)))
-											.addGap(46, 46, 46)));
-			jPanel1Layout
-					.setVerticalGroup(jPanel1Layout
-							.createParallelGroup(
-									javax.swing.GroupLayout.Alignment.LEADING)
-							.addGroup(
-									jPanel1Layout
-											.createSequentialGroup()
-											.addContainerGap()
-											.addGroup(
-													jPanel1Layout
-															.createParallelGroup(
-																	javax.swing.GroupLayout.Alignment.LEADING)
-															.addGroup(
-																	jPanel1Layout
-																			.createSequentialGroup()
-																			.addComponent(
-																					entryRadioButton)
-																			.addGap(32,
-																					32,
-																					32)
-																			.addComponent(
-																					exitRadioButton)
-																			.addGap(28,
-																					28,
-																					28)
-																			.addComponent(
-																					reservationRadioButton))
-															.addGroup(
-																	jPanel1Layout
-																			.createSequentialGroup()
-																			.addGap(22,
-																					22,
-																					22)
-																			.addGroup(
-																					jPanel1Layout
-																							.createParallelGroup(
-																									javax.swing.GroupLayout.Alignment.BASELINE)
-																							.addComponent(
-																									fullRadioButton)
-																							.addComponent(
-																									B12)
-																							.addComponent(
-																									B38)
-																							.addComponent(
-																									B32)
-																							.addComponent(
-																									B28)
-																							.addComponent(
-																									B6)
-																							.addComponent(
-																									B15))
-																			.addGroup(
-																					jPanel1Layout
-																							.createParallelGroup(
-																									javax.swing.GroupLayout.Alignment.LEADING)
-																							.addGroup(
-																									jPanel1Layout
-																											.createSequentialGroup()
-																											.addGap(18,
-																													18,
-																													18)
-																											.addComponent(
-																													emptyRadioButton))
-																							.addGroup(
-																									jPanel1Layout
-																											.createSequentialGroup()
-																											.addGap(31,
-																													31,
-																													31)
-																											.addGroup(
-																													jPanel1Layout
-																															.createParallelGroup(
-																																	javax.swing.GroupLayout.Alignment.BASELINE)
-																															.addComponent(
-																																	addButton)
-																															.addComponent(
-																																	labelComboBox,
-																																	javax.swing.GroupLayout.PREFERRED_SIZE,
-																																	javax.swing.GroupLayout.DEFAULT_SIZE,
-																																	javax.swing.GroupLayout.PREFERRED_SIZE)
-																															.addComponent(
-																																	quantitySpinnerBox,
-																																	javax.swing.GroupLayout.PREFERRED_SIZE,
-																																	javax.swing.GroupLayout.DEFAULT_SIZE,
-																																	javax.swing.GroupLayout.PREFERRED_SIZE))))))
-											.addGap(11, 11, 11)
-											.addComponent(printButton)
-											.addContainerGap(15,
-													Short.MAX_VALUE)));
+			javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+	        jPanel1.setLayout(jPanel1Layout);
+	        jPanel1Layout.setHorizontalGroup(
+	            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+	            .addGroup(jPanel1Layout.createSequentialGroup()
+	                .addContainerGap()
+	                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+	                    .addComponent(exitRadioButton)
+	                    .addComponent(entryRadioButton)
+	                    .addComponent(reservationRadioButton))
+	                .addGap(34, 34, 34)
+	                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+	                    .addComponent(fullRadioButton)
+	                    .addComponent(emptyRadioButton))
+	                .addGap(47, 47, 47)
+	                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+	                    .addGroup(jPanel1Layout.createSequentialGroup()
+	                        .addComponent(labelComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+	                        .addGap(69, 69, 69)
+	                        .addComponent(quantitySpinnerBox, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+	                        .addGap(67, 67, 67)
+	                        .addComponent(addButton))
+	                    .addGroup(jPanel1Layout.createSequentialGroup()
+	                        .addComponent(B6)
+	                        .addGap(18, 18, 18)
+	                        .addComponent(B12)
+	                        .addGap(18, 18, 18)
+	                        .addComponent(B15)
+	                        .addGap(18, 18, 18)
+	                        .addComponent(B28)
+	                        .addGap(18, 18, 18)
+	                        .addComponent(B32)))
+	                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+	                    .addGroup(jPanel1Layout.createSequentialGroup()
+	                        .addGap(18, 18, 18)
+	                        .addComponent(B38))
+	                    .addGroup(jPanel1Layout.createSequentialGroup()
+	                        .addGap(49, 49, 49)
+	                        .addComponent(printButton)))
+	                .addGap(57, 57, 57))
+	        );
+	        jPanel1Layout.setVerticalGroup(
+	            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+	            .addGroup(jPanel1Layout.createSequentialGroup()
+	                .addContainerGap()
+	                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+	                    .addGroup(jPanel1Layout.createSequentialGroup()
+	                        .addComponent(entryRadioButton)
+	                        .addGap(32, 32, 32)
+	                        .addComponent(exitRadioButton)
+	                        .addGap(28, 28, 28)
+	                        .addComponent(reservationRadioButton))
+	                    .addGroup(jPanel1Layout.createSequentialGroup()
+	                        .addGap(22, 22, 22)
+	                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+	                            .addComponent(fullRadioButton)
+	                            .addComponent(B6)
+	                            .addComponent(B12)
+	                            .addComponent(B15)
+	                            .addComponent(B28)
+	                            .addComponent(B32)
+	                            .addComponent(B38))
+	                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+	                            .addGroup(jPanel1Layout.createSequentialGroup()
+	                                .addGap(18, 18, 18)
+	                                .addComponent(emptyRadioButton))
+	                            .addGroup(jPanel1Layout.createSequentialGroup()
+	                                .addGap(31, 31, 31)
+	                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+	                                    .addComponent(addButton)
+	                                    .addComponent(labelComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+	                                    .addComponent(quantitySpinnerBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+	                                    .addComponent(printButton))))))
+	                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+	        );
+	        
 			this.add(jPanel1);
 
 			setVisible(true);

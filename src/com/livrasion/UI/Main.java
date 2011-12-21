@@ -44,11 +44,14 @@ import javax.swing.table.TableModel;
 public class Main extends JFrame {
 
 	private UserInputPanel inputPanel;
+	
+	int[] coloumSize = {185, 605, 50, 106, 50, 106};	
+	int [] nSquaresPerRow = {5, 15, 1, 2, 1, 2};
 
 	Main() {
-
+		
 		super("Livraison Cylinder Management");
-
+		
 		try {
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 		} catch (Exception e) {
@@ -62,16 +65,17 @@ public class Main extends JFrame {
 		 * col; } };
 		 */
 		final CellSpan cellAtt = (CellSpan) ml.getCellAttribute();
-		final MultiSpanCellTable table = new MultiSpanCellTable(ml) {
+		MultiSpanCellTable table = new MultiSpanCellTable(ml) {
 			public boolean getScrollableTracksViewportWidth() {
 				return getPreferredSize().width < getParent().getWidth();
 			}
 		};
 
-		table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 		final JScrollPane scrollPane = new JScrollPane(table);
 		getContentPane().add(scrollPane);
-
+		table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+		
+		
 		JScrollPane scroll = new JScrollPane(table);
 
 		JPanel p_buttons = new JPanel();
@@ -135,13 +139,39 @@ public class Main extends JFrame {
 		for (int i = 0; i < 2; ++i) {
 			table.getColumnModel().getColumn(i).setCellRenderer(rightRenderer);
 		}
-
+		
 		QuantityPanel[][] qp = new QuantityPanel[6][6];
 		table.setDefaultRenderer(QuantityPanel.class,
 				new QuantityPanelCellRenderer());
+//		for (int i = 1; i < table.getColumnCount(); ++i) {
+//			table.getColumnModel().getColumn(i).setHeaderCellRenderer(new QuantityPanelCellRenderer());
+//		}
 		setOtherRowsAndColumns(table, qp);
 		table.setTableHeader(null);
-		table.setRowHeight(60);
+		table.setRowHeight(92);
+		table.setRowHeight(0,25);
+		table.setRowHeight(7,20);
+		table.setQualityPanel(qp);
+		
+		int nColumns = table.getColumnModel().getColumnCount();
+		
+		table.getColumnModel().getColumn(0).setMinWidth(100);
+		table.getColumnModel().getColumn(0).setMaxWidth(100);
+		table.getColumnModel().getColumn(1).setMinWidth(75);
+		table.getColumnModel().getColumn(1).setMaxWidth(75);
+		table.getColumnModel().getColumn(2).setMinWidth(coloumSize[0]);
+		table.getColumnModel().getColumn(2).setMaxWidth(coloumSize[0]);
+		table.getColumnModel().getColumn(3).setMinWidth(coloumSize[1]);
+		table.getColumnModel().getColumn(3).setMaxWidth(coloumSize[1]);
+		table.getColumnModel().getColumn(4).setMinWidth(coloumSize[2]);
+		table.getColumnModel().getColumn(4).setMaxWidth(coloumSize[2]);
+		table.getColumnModel().getColumn(5).setMinWidth(coloumSize[3]);
+		table.getColumnModel().getColumn(5).setMaxWidth(coloumSize[3]);
+		table.getColumnModel().getColumn(6).setMinWidth(coloumSize[4]);
+		table.getColumnModel().getColumn(6).setMaxWidth(coloumSize[4]);
+		table.getColumnModel().getColumn(7).setMinWidth(coloumSize[5]);
+		table.getColumnModel().getColumn(7).setMaxWidth(coloumSize[5]);
+		
 
 		// ////////////////////////////////////////////////////////
 
@@ -174,7 +204,7 @@ public class Main extends JFrame {
 				
 		Box box = Box.createVerticalBox();
 		box.add(table);
-		box.add(Box.createVerticalStrut(25));
+		//box.add(Box.createVerticalStrut(25));
 		box.add(inputPanel);
 		getContentPane().add(box);
 //		box.add(button);		
@@ -207,7 +237,7 @@ public class Main extends JFrame {
 		return height;
 	}
 
-	private void setFixedRowValues(MultiSpanCellTable table) {
+	private void setFixedRowValues(MultiSpanCellTable table) {		
 		table.setValueAt("Entrees", 1, 0);
 		table.setValueAt("Pleines", 1, 1);
 		table.setValueAt("Vides", 2, 1);
@@ -234,7 +264,7 @@ public class Main extends JFrame {
 			QuantityPanel[][] qp) {
 		for (int i = 0; i < qp.length; ++i) {
 			for (int j = 0; j < qp[0].length; ++j) {
-				qp[i][j] = new QuantityPanel(i + 1, j + 2, table);
+				qp[i][j] = new QuantityPanel(i + 1, j + 2, nSquaresPerRow[j], table);
 				if (i < 2) {
 					qp[i][j].setType(QuantityPanel.ENTRY);
 				} else if (i < 4) {
@@ -243,25 +273,9 @@ public class Main extends JFrame {
 					qp[i][j].setType(QuantityPanel.OTHER);
 				}
 				table.setValueAt(qp[i][j], i + 1, j + 2);
-				// table.setDefaultRenderer(QuantityPanel.class, new
-				// QuantityPanelCellRenderer());
-				// qp[i][j].repaint();
 			}
 		}
 	}
-
-	// ActionListener printAction = new ActionListener() {
-	public void actionPerformed(ActionEvent e, JTable table) {
-		try {
-			MessageFormat headerFormat = new MessageFormat("Page {0}");
-			MessageFormat footerFormat = new MessageFormat("- {0} -");
-			table.print(JTable.PrintMode.FIT_WIDTH, headerFormat, footerFormat);
-		} catch (PrinterException pe) {
-			System.err.println("Error printing: " + pe.getMessage());
-		}
-	}
-
-	// };
 
 	private int[] toArray(List<Integer> list) {
 		int[] arr = new int[list.size()];
@@ -285,10 +299,6 @@ public class Main extends JFrame {
 	}
 
 }
-
-/**
- * @version 1.0 11/22/98
- */
 
 class AttributiveCellTableModel extends DefaultTableModel {
 
@@ -341,7 +351,6 @@ class AttributiveCellTableModel extends DefaultTableModel {
 		columnIdentifiers = columnNames;
 		dataVector = newData;
 
-		//
 		cellAtt = new DefaultCellAttribute(dataVector.size(),
 				columnIdentifiers.size());
 
@@ -364,8 +373,7 @@ class AttributiveCellTableModel extends DefaultTableModel {
 			((Vector) eeration.nextElement()).addElement(value);
 			index++;
 		}
-
-		//
+		
 		cellAtt.addColumn();
 
 		fireTableStructureChanged();
@@ -385,7 +393,6 @@ class AttributiveCellTableModel extends DefaultTableModel {
 		}
 		dataVector.addElement(newData);
 
-		//
 		cellAtt.addRow();
 
 		newRowsAdded(new TableModelEvent(this, getRowCount() - 1,
@@ -402,7 +409,6 @@ class AttributiveCellTableModel extends DefaultTableModel {
 
 		dataVector.insertElementAt(rowData, row);
 
-		//
 		cellAtt.insertRow(row);
 
 		newRowsAdded(new TableModelEvent(this, row, row,
@@ -752,12 +758,18 @@ interface CellSpan {
 
 class MultiSpanCellTable extends JTable {
 
+	private QuantityPanel[][] qp;
+
 	public MultiSpanCellTable(TableModel model) {
 		super(model);
 		setUI(new MultiSpanCellTableUI());
 		getTableHeader().setReorderingAllowed(false);
 		setCellSelectionEnabled(true);
 		setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
+	}
+
+	public void setQualityPanel(QuantityPanel[][] qp) {
+		this.qp = qp;		
 	}
 
 	public Rectangle getCellRect(int row, int column, boolean includeSpacing) {
@@ -779,14 +791,17 @@ class MultiSpanCellTable extends JTable {
 		int index = 0;
 		int columnMargin = getColumnModel().getColumnMargin();
 		Rectangle cellFrame = new Rectangle();
-		int aCellHeight = rowHeight + rowMargin;
-		cellFrame.y = row * aCellHeight;
+		int aCellHeight = getRowHeight(row) + rowMargin;//rowHeight + rowMargin;
+		for (int i = 0; i < row; ++i) {
+			cellFrame.y += this.getRowHeight(i);
+		}
+//		cellFrame.y = row * aCellHeight;
 		cellFrame.height = n[CellSpan.ROW] * aCellHeight;
 
 		Enumeration eeration = getColumnModel().getColumns();
 		while (eeration.hasMoreElements()) {
 			TableColumn aColumn = (TableColumn) eeration.nextElement();
-			cellFrame.width = aColumn.getWidth() + columnMargin;
+			cellFrame.width = aColumn.getWidth() + columnMargin; 
 			if (index == column)
 				break;
 			cellFrame.x += cellFrame.width;
@@ -840,7 +855,7 @@ class MultiSpanCellTable extends JTable {
 		repaint();
 	}
 
-	public void valueChanged(ListSelectionEvent e) {
+	public void valueChanged(ListSelectionEvent e) {		
 		int firstIndex = e.getFirstIndex();
 		int lastIndex = e.getLastIndex();
 		if (firstIndex == -1 && lastIndex == -1) { // Selection cleared.
@@ -856,8 +871,20 @@ class MultiSpanCellTable extends JTable {
 		for (int i = 0; i < numCoumns; i++) {
 			dirtyRegion.add(getCellRect(index, i, false));
 		}
+		
 		repaint(dirtyRegion.x, dirtyRegion.y, dirtyRegion.width,
 				dirtyRegion.height);
+	}
+
+	public boolean isDirty(int index) {
+		if (qp == null || index == 0 || index == 7)
+			return false;
+		index --;
+		for (int j = 0; j < qp[index].length; ++j) {
+			if (qp[index][j].isDirty())
+				return true;
+		}
+		return false;
 	}
 
 }
@@ -879,8 +906,11 @@ class MultiSpanCellTableUI extends BasicTableUI {
 		int lastIndex = table.getRowCount() - 1;
 
 		Rectangle rowRect = new Rectangle(0, 0, tableWidth,
-				table.getRowHeight() + table.getRowMargin());
-		rowRect.y = firstIndex * rowRect.height;
+				table.getRowHeight(firstIndex) + table.getRowMargin());
+		for(int index = 0; index < firstIndex; ++index) {
+			rowRect.y += table.getRowHeight(index);
+		}
+//		rowRect.y = firstIndex * rowRect.height;
 
 		for (int index = firstIndex; index <= lastIndex; index++) {
 			if (rowRect.intersects(clipBounds)) {
@@ -888,12 +918,14 @@ class MultiSpanCellTableUI extends BasicTableUI {
 				// System.out.print("" + index +": "); // row
 				paintRow(g, index);
 			}
-			rowRect.y += rowRect.height;
+			rowRect.y += table.getRowHeight(index);//rowRect.height;
+			rowRect.height = (index < lastIndex)?table.getRowHeight(index+1)+table.getRowMargin():0;
 		}
 		g.setClip(oldClipBounds);
 	}
 
-	private void paintRow(Graphics g, int row) {
+	private void paintRow(Graphics g, int row) {	
+		
 		Rectangle rect = g.getClipBounds();
 		boolean drawn = false;
 
@@ -916,7 +948,7 @@ class MultiSpanCellTableUI extends BasicTableUI {
 				// System.out.print("  ("+column+")"); // debug
 			}
 			if (cellRect.intersects(rect)) {
-				drawn = true;
+				drawn = true;				
 				paintCell(g, cellRect, cellRow, cellColumn);
 			} else {
 				if (drawn)
@@ -952,6 +984,7 @@ class MultiSpanCellTableUI extends BasicTableUI {
 			if (component.getParent() == null) {
 				rendererPane.add(component);
 			}
+			
 			rendererPane.paintComponent(g, component, table, cellRect.x,
 					cellRect.y, cellRect.width, cellRect.height, true);
 		}

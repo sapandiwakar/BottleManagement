@@ -26,7 +26,7 @@ public class QuantityPanel extends JPanel {
 	public static final int ENTRY = 0;
 	public static final int EXIT = 1;
 	public static final int OTHER = 2;
-	public static final int nSquaresPerRow = 3;
+	public int nSquaresPerRow;
 
 	MultiSpanCellTable table;
 	int row;
@@ -37,22 +37,25 @@ public class QuantityPanel extends JPanel {
 	int type;
 	List<String> tags;
 
-	private int sideLength = 30;
-	private int gap = 20;
+	private int sideLength = 25;
+	private int gap = 22;
 	private int yInitial = 10;
 	private int xInitial = 10;
 
 	public int rowHeight = yInitial + sideLength + gap;
 	private int colWidth;
 
-	private Font font = new Font("Sansserif", Font.PLAIN, 10);
+	private Font font = new Font("Sansserif", Font.PLAIN, 8);
 
 	private AffineTransform at;
 
-	public QuantityPanel(int row, int col, MultiSpanCellTable table) {
+	private boolean isDirty = true;
+	
+	public QuantityPanel(int row, int col, int nSquaresPerRow, MultiSpanCellTable table) {
 		this.row = row;
 		this.col = col;
 		this.table = table;
+		this.nSquaresPerRow = nSquaresPerRow;
 		this.tags = new ArrayList<String>();
 	}
 
@@ -66,23 +69,11 @@ public class QuantityPanel extends JPanel {
 		} else {
 			g.setColor(new Color(0, 0, 255));
 		}
-
-		int nSquares = quantity / nSides;
+		
 		int lineType = 0;
 		int currSquare = 0;
 		int x = xInitial;
 		int y = yInitial;
-		//
-		// int gap = (Math.min(table.getCellRect(row, col, false).height,
-		// table.getCellRect(row, col, false).width)) / 10;
-		//
-		// int rowSideLength = table.getCellRect(row, col, false).height - gap
-		// * nSquares / nSquaresPerRow - yInitial;
-		//
-		// int colSideLength = table.getCellRect(row, col, false).width - gap
-		// * ((nSquares>2)?3:nSquares) - xInitial;
-		//
-		// int sideLength = Math.min(rowSideLength,colSideLength)/(nSquares+1);
 
 		for (int i = 0; i < quantity; ++i) {
 			switch (lineType) {
@@ -114,9 +105,8 @@ public class QuantityPanel extends JPanel {
 			case 3:
 				g.drawLine(x, y, x - sideLength, y);
 				g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
-						RenderingHints.VALUE_ANTIALIAS_ON);
-				Font font3 = new Font("Sansserif", Font.PLAIN, 10);
-				g2.setFont(font3);
+						RenderingHints.VALUE_ANTIALIAS_ON);				
+				g2.setFont(font);
 				g2.drawString(tags.get(i), x - 22, y + 9);
 				x -= sideLength;
 				break;
@@ -135,14 +125,12 @@ public class QuantityPanel extends JPanel {
 				x = xInitial + currSquare * (sideLength + gap);
 				y = yInitial;
 
-				if (currSquare % 3 == 0) {
+				if (currSquare % nSquaresPerRow == 0) {
 					x = xInitial;
 					y = yInitial + (sideLength + gap) * currSquare
 							/ nSquaresPerRow;
 					rowHeight += sideLength + gap;
 					setPreferredSize(new Dimension(colWidth, rowHeight));
-					// table.setRowHeight(1, 250);
-					refresh();
 				}
 				break;
 			}
@@ -172,6 +160,7 @@ public class QuantityPanel extends JPanel {
 	}
 
 	public void setQuantity(int quantity, String tag) {
+		this.isDirty = true;
 		for (int i = this.quantity; i < quantity; ++i) {
 			tags.add(tag);
 		}
@@ -180,10 +169,12 @@ public class QuantityPanel extends JPanel {
 	}
 	
 	public void addQuantity(int quantity, String tag) {
+		this.isDirty = true;
 		for (int i = 0; i < quantity; ++i) {
 			tags.add(tag);
 		}
 		this.quantity += quantity;
+		refresh();
 	}
 
 	public int getType() {
@@ -208,5 +199,21 @@ public class QuantityPanel extends JPanel {
 
 	public void setTable(MultiSpanCellTable table) {
 		this.table = table;
+	}
+
+	public boolean isDirty() {
+		if (isDirty) {
+			isDirty = false;
+			return true;
+		}
+		return this.isDirty ;
+	}
+
+	public int getnSquares() {
+		return nSquaresPerRow;
+	}
+
+	public void setnSquares(int nSquares) {
+		this.nSquaresPerRow = nSquares;
 	}
 }
