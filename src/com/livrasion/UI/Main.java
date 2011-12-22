@@ -6,20 +6,24 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.GridLayout;
+import java.awt.Image;
 import java.awt.Point;
 import java.awt.Rectangle;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.print.PrinterException;
+import java.io.IOException;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
 import java.util.Vector;
 
+import javax.imageio.ImageIO;
 import javax.swing.Box;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
@@ -45,7 +49,7 @@ public class Main extends JFrame {
 
 	private UserInputPanel inputPanel;
 	
-	int[] coloumSize = {185, 605, 50, 106, 50, 106};	
+	int[] coloumSize = {210, 628, 43, 87, 43, 87};	
 	int [] nSquaresPerRow = {5, 15, 1, 2, 1, 2};
 
 	Main() {
@@ -57,7 +61,11 @@ public class Main extends JFrame {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
+        
+		setSize(1284,779);               //Set Window Width and Height
+		setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+//	    setResizable(false);
+	    
 		AttributiveCellTableModel ml = new AttributiveCellTableModel(8, 8);
 		/*
 		 * AttributiveCellTableModel ml = new AttributiveCellTableModel(10,6) {
@@ -136,19 +144,20 @@ public class Main extends JFrame {
 		// To align the text to center in a cell
 		DefaultTableCellRenderer rightRenderer = new DefaultTableCellRenderer();
 		rightRenderer.setHorizontalAlignment(JLabel.CENTER);
-		for (int i = 0; i < 2; ++i) {
-			table.getColumnModel().getColumn(i).setCellRenderer(rightRenderer);
+		QuantityPanelCellRenderer quantityPanelCellRenderer = new QuantityPanelCellRenderer();
+		for (int i = 0; i < table.getColumnModel().getColumnCount(); ++i) {
+			table.getColumnModel().getColumn(i).setCellRenderer(quantityPanelCellRenderer);
 		}
 		
 		QuantityPanel[][] qp = new QuantityPanel[6][6];
-		table.setDefaultRenderer(QuantityPanel.class,
-				new QuantityPanelCellRenderer());
+//		table.setDefaultRenderer(QuantityPanel.class,
+//				new QuantityPanelCellRenderer());
 //		for (int i = 1; i < table.getColumnCount(); ++i) {
 //			table.getColumnModel().getColumn(i).setHeaderCellRenderer(new QuantityPanelCellRenderer());
 //		}
 		setOtherRowsAndColumns(table, qp);
 		table.setTableHeader(null);
-		table.setRowHeight(92);
+		table.setRowHeight(91);
 		table.setRowHeight(0,25);
 		table.setRowHeight(7,20);
 		table.setQualityPanel(qp);
@@ -216,7 +225,6 @@ public class Main extends JFrame {
 				inputPanel.handleResize();
 			}
 		});		
-		setSize(400, 200);
 		setVisible(true);
 
 	}
@@ -225,7 +233,7 @@ public class Main extends JFrame {
 	// The result is equal to the tallest cell in the row.
 	public int getPreferredRowHeight(JTable table, int rowIndex, int margin) {
 		// Get the current default height for all rows
-		int height = table.getRowHeight();
+		int height = table.getRowHeight(	);
 
 		// Determine highest cell in the row
 		for (int c = 0; c < table.getColumnCount(); c++) {

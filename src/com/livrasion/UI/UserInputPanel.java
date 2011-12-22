@@ -49,10 +49,6 @@ public class UserInputPanel extends javax.swing.JPanel {
 	MultiSpanCellTable table;
 	QuantityPanel[][] qp;
 
-	/**
-	 * Auto-generated main method to display this JPanel inside a new JFrame.
-	 */
-
 	public UserInputPanel(MultiSpanCellTable table, QuantityPanel[][] qp) {
 		super();
 		this.table = table;
@@ -98,8 +94,6 @@ public class UserInputPanel extends javax.swing.JPanel {
 			labelComboBox = new javax.swing.JComboBox();
 			quantitySpinnerBox = new javax.swing.JSpinner(
 					new SpinnerNumberModel(0, 0, 99, 1));
-			// labelTextField = new javax.swing.JTextField();
-			// quantityTextField = new javax.swing.JTextField();
 			addButton = new javax.swing.JButton();
 
 			printButton = new javax.swing.JButton();
@@ -114,8 +108,6 @@ public class UserInputPanel extends javax.swing.JPanel {
 
 						private void entryRadioButtonActionPerformed(
 								ActionEvent evt) {
-							// TODO Auto-generated method stub
-
 						}
 					});
 
@@ -129,7 +121,6 @@ public class UserInputPanel extends javax.swing.JPanel {
 
 						private void exitRadioButtonActionPerformed(
 								ActionEvent evt) {
-							// TODO Auto-generated method stub
 
 						}
 					});
@@ -150,7 +141,7 @@ public class UserInputPanel extends javax.swing.JPanel {
 					addButtonActionPerformed(evt);
 				}
 
-				private void addButtonActionPerformed(ActionEvent evt) {
+				private void addButtonActionPerformed(ActionEvent evt) {				
 					String io = ioButtonRadioGroup.getSelection()
 							.getActionCommand();
 					String weight = bottleWeightRadioGroup.getSelection()
@@ -160,25 +151,6 @@ public class UserInputPanel extends javax.swing.JPanel {
 
 					String label = "";
 					int quantity;
-
-					// if (labelTextField.getText() == null ||
-					// labelTextField.getText().isEmpty()) {
-					// JOptionPane.showMessageDialog(null,
-					// "You must enter the label", "Warning",
-					// JOptionPane.WARNING_MESSAGE);
-					// return;
-					// }
-
-					// if (quantityTextField.getText() == null
-					// || quantityTextField.getText().isEmpty()) {
-					// JOptionPane.showMessageDialog(null,
-					// "You must specify the quantity", "Warning",
-					// JOptionPane.WARNING_MESSAGE);
-					// return;
-					// }
-
-					// label = labelTextField.getText();
-					// quantity = quantityTextField.getText();
 
 					label = (String) labelComboBox.getSelectedItem();
 					quantity = (Integer) quantitySpinnerBox.getValue();
@@ -192,18 +164,7 @@ public class UserInputPanel extends javax.swing.JPanel {
 					}
 					qp[row][col].addQuantity(quantity, label);
 
-				}
-
-				// public JRadioButton getSelection(ButtonGroup group) {
-				// for (Enumeration e = group.getElements(); e
-				// .hasMoreElements();) {
-				// JRadioButton b = (JRadioButton) e.nextElement();
-				// if (b.getModel() == group.getSelection()) {
-				// return b;
-				// }
-				// }
-				// return null;
-				// }
+				}				
 			});
 
 			printButton.setText("Print");
@@ -212,11 +173,8 @@ public class UserInputPanel extends javax.swing.JPanel {
 					printButtonActionPerformed(evt);
 				}
 
-				private void printButtonActionPerformed(ActionEvent evt) {
-					// TODO Auto-generated method stub
+				private void printButtonActionPerformed(ActionEvent evt) {					
 					try {
-						// MessageFormat headerFormat = new
-						// MessageFormat("Page {0}");
 						MessageFormat footerFormat = new MessageFormat(
 								"- {0} -");
 						table.print(JTable.PrintMode.FIT_WIDTH, null,

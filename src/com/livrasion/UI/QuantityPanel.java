@@ -37,8 +37,8 @@ public class QuantityPanel extends JPanel {
 	int type;
 	List<String> tags;
 
-	private int sideLength = 25;
-	private int gap = 22;
+	private int sideLength = 22;
+	private int gap = 20;
 	private int yInitial = 10;
 	private int xInitial = 10;
 
@@ -75,6 +75,8 @@ public class QuantityPanel extends JPanel {
 		int x = xInitial;
 		int y = yInitial;
 
+		int rowNumber = 0;
+		
 		for (int i = 0; i < quantity; ++i) {
 			switch (lineType) {
 			case 0:
@@ -90,7 +92,7 @@ public class QuantityPanel extends JPanel {
 				g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
 						RenderingHints.VALUE_ANTIALIAS_ON);
 				g2.setFont(font);
-				g2.drawString(tags.get(i), x + 5, y - 1);
+				g2.drawString(tags.get(i), x + 3, y - 1);
 				x += sideLength;
 				break;
 			case 2:
@@ -100,37 +102,33 @@ public class QuantityPanel extends JPanel {
 						RenderingHints.VALUE_ANTIALIAS_ON);
 				g2.setFont(font);
 				at = g2.getTransform();
-				render(1, x + 2, y - sideLength + 4, tags.get(i), at, g2);
+				render(1, x + 2, y - sideLength + 3, tags.get(i), at, g2);
 				break;
 			case 3:
 				g.drawLine(x, y, x - sideLength, y);
 				g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
 						RenderingHints.VALUE_ANTIALIAS_ON);				
 				g2.setFont(font);
-				g2.drawString(tags.get(i), x - 22, y + 9);
+				g2.drawString(tags.get(i), x - 21, y + 9);
 				x -= sideLength;
 				break;
 			case 4:
 				g.drawLine(x, y, x + sideLength, y - sideLength);
 				g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
-						RenderingHints.VALUE_ANTIALIAS_ON);
-				Font font = new Font("Sansserif", Font.PLAIN, 10);
-				g2.setFont(font);
-				g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
-						RenderingHints.VALUE_ANTIALIAS_ON);
+						RenderingHints.VALUE_ANTIALIAS_ON);	
 				g2.setFont(font);
 				at = g2.getTransform();
-				render(3.5, x + 10, y - 10, tags.get(i), at, g2);
+				render(3.5, x + 5, y - 5, tags.get(i), at, g2);
 				currSquare++;
-				x = xInitial + currSquare * (sideLength + gap);
-				y = yInitial;
+				x = xInitial + (currSquare%nSquaresPerRow) * (sideLength + gap);
+				y = yInitial + (sideLength + gap)
+						* (rowNumber);
 
 				if (currSquare % nSquaresPerRow == 0) {
 					x = xInitial;
+					rowNumber++;
 					y = yInitial + (sideLength + gap) * currSquare
 							/ nSquaresPerRow;
-					rowHeight += sideLength + gap;
-					setPreferredSize(new Dimension(colWidth, rowHeight));
 				}
 				break;
 			}
