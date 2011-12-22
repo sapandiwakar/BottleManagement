@@ -27,7 +27,7 @@ public class QuantityPanel extends JPanel {
 	public static final int EXIT = 1;
 	public static final int OTHER = 2;
 	public int nSquaresPerRow;
-
+	
 	MultiSpanCellTable table;
 	int row;
 	int col;

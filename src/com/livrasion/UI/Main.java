@@ -64,14 +64,9 @@ public class Main extends JFrame {
         
 		setSize(1284,779);               //Set Window Width and Height
 		setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-//	    setResizable(false);
+	    setResizable(false);
 	    
 		AttributiveCellTableModel ml = new AttributiveCellTableModel(8, 8);
-		/*
-		 * AttributiveCellTableModel ml = new AttributiveCellTableModel(10,6) {
-		 * public Object getValueAt(int row, int col) { return "" + row + ","+
-		 * col; } };
-		 */
 		final CellSpan cellAtt = (CellSpan) ml.getCellAttribute();
 		MultiSpanCellTable table = new MultiSpanCellTable(ml) {
 			public boolean getScrollableTracksViewportWidth() {

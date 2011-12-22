@@ -48,6 +48,7 @@ public class UserInputPanel extends javax.swing.JPanel {
 
 	MultiSpanCellTable table;
 	QuantityPanel[][] qp;
+	public int[] nMaxSquares = {50, 150, 10, 20, 10, 20};
 
 	public UserInputPanel(MultiSpanCellTable table, QuantityPanel[][] qp) {
 		super();
@@ -93,7 +94,7 @@ public class UserInputPanel extends javax.swing.JPanel {
 
 			labelComboBox = new javax.swing.JComboBox();
 			quantitySpinnerBox = new javax.swing.JSpinner(
-					new SpinnerNumberModel(0, 0, 99, 1));
+					new SpinnerNumberModel(0, 0, 150, 1));
 			addButton = new javax.swing.JButton();
 
 			printButton = new javax.swing.JButton();
@@ -162,7 +163,15 @@ public class UserInputPanel extends javax.swing.JPanel {
 					if (label.equals("No Tag")) {
 						label = "";
 					}
-					qp[row][col].addQuantity(quantity, label);
+					if (qp[row][col].getQuantity() + quantity > nMaxSquares[col]) {
+						JOptionPane.showMessageDialog(null,
+							    "Total quantity can't be greater than " + nMaxSquares[col],
+							    "Error!",
+							    JOptionPane.ERROR_MESSAGE);
+						return;
+					} else {
+						qp[row][col].addQuantity(quantity, label);	
+					}
 
 				}				
 			});
