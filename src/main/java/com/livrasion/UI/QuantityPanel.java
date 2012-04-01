@@ -4,7 +4,6 @@
 package com.livrasion.UI;
 
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -17,7 +16,6 @@ import javax.swing.JPanel;
 
 /**
  * @author hp
- * 
  */
 public class QuantityPanel extends JPanel {
 
@@ -27,7 +25,7 @@ public class QuantityPanel extends JPanel {
 	public static final int EXIT = 1;
 	public static final int OTHER = 2;
 	public int nSquaresPerRow;
-	
+
 	MultiSpanCellTable table;
 	int row;
 	int col;
@@ -50,7 +48,7 @@ public class QuantityPanel extends JPanel {
 	private AffineTransform at;
 
 	private boolean isDirty = true;
-	
+
 	public QuantityPanel(int row, int col, int nSquaresPerRow, MultiSpanCellTable table) {
 		this.row = row;
 		this.col = col;
@@ -69,28 +67,26 @@ public class QuantityPanel extends JPanel {
 		} else {
 			g.setColor(new Color(0, 0, 255));
 		}
-		
+
 		int lineType = 0;
 		int currSquare = 0;
 		int x = xInitial;
 		int y = yInitial;
 
 		int rowNumber = 0;
-		
+
 		for (int i = 0; i < quantity; ++i) {
 			switch (lineType) {
 			case 0:
 				g.drawLine(x, y, x, y + sideLength);
-				g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
-						RenderingHints.VALUE_ANTIALIAS_ON);
+				g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 				g2.setFont(font);
 				at = g2.getTransform();
 				render(3, x - 1, y + sideLength - 3, tags.get(i), at, g2);
 				break;
 			case 1:
 				g.drawLine(x, y, x + sideLength, y);
-				g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
-						RenderingHints.VALUE_ANTIALIAS_ON);
+				g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 				g2.setFont(font);
 				g2.drawString(tags.get(i), x + 3, y - 1);
 				x += sideLength;
@@ -98,37 +94,32 @@ public class QuantityPanel extends JPanel {
 			case 2:
 				g.drawLine(x, y, x, y + sideLength);
 				y += sideLength;
-				g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
-						RenderingHints.VALUE_ANTIALIAS_ON);
+				g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 				g2.setFont(font);
 				at = g2.getTransform();
 				render(1, x + 2, y - sideLength + 3, tags.get(i), at, g2);
 				break;
 			case 3:
 				g.drawLine(x, y, x - sideLength, y);
-				g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
-						RenderingHints.VALUE_ANTIALIAS_ON);				
+				g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 				g2.setFont(font);
 				g2.drawString(tags.get(i), x - 21, y + 9);
 				x -= sideLength;
 				break;
 			case 4:
 				g.drawLine(x, y, x + sideLength, y - sideLength);
-				g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
-						RenderingHints.VALUE_ANTIALIAS_ON);	
+				g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 				g2.setFont(font);
 				at = g2.getTransform();
 				render(3.5, x + 5, y - 5, tags.get(i), at, g2);
 				currSquare++;
-				x = xInitial + (currSquare%nSquaresPerRow) * (sideLength + gap);
-				y = yInitial + (sideLength + gap)
-						* (rowNumber);
+				x = xInitial + currSquare % nSquaresPerRow * (sideLength + gap);
+				y = yInitial + (sideLength + gap) * rowNumber;
 
 				if (currSquare % nSquaresPerRow == 0) {
 					x = xInitial;
 					rowNumber++;
-					y = yInitial + (sideLength + gap) * currSquare
-							/ nSquaresPerRow;
+					y = yInitial + (sideLength + gap) * currSquare / nSquaresPerRow;
 				}
 				break;
 			}
@@ -138,8 +129,7 @@ public class QuantityPanel extends JPanel {
 		}
 	}
 
-	private void render(double n, int x, int y, String tag, AffineTransform at,
-			Graphics2D g2) {
+	private void render(double n, int x, int y, String tag, AffineTransform at, Graphics2D g2) {
 		Graphics2D g2d = g2;
 		g2d.setTransform(at);
 		g2d.rotate(n * Math.PI / 2, x, y);
@@ -165,7 +155,7 @@ public class QuantityPanel extends JPanel {
 		this.quantity = quantity;
 		refresh();
 	}
-	
+
 	public void addQuantity(int quantity, String tag) {
 		this.isDirty = true;
 		for (int i = 0; i < quantity; ++i) {
@@ -204,7 +194,7 @@ public class QuantityPanel extends JPanel {
 			isDirty = false;
 			return true;
 		}
-		return this.isDirty ;
+		return this.isDirty;
 	}
 
 	public int getnSquares() {
@@ -213,5 +203,11 @@ public class QuantityPanel extends JPanel {
 
 	public void setnSquares(int nSquares) {
 		this.nSquaresPerRow = nSquares;
+	}
+
+	public void clear() {
+		quantity = 0;
+		tags.clear();
+
 	}
 }
